@@ -1,29 +1,35 @@
 extends KinematicBody2D
 
-var speed : int = 200
-var gravity : int = 800
+const SPEED : int = 200
+const GRAVITY : int = 800
 
-var vel : Vector2 = Vector2()
+var velocity : Vector2 = Vector2()
+var stateMachine;
 
-onready var sprite : AnimatedSprite = get_node("AnimatedSprite")
+func _ready():
+	stateMachine = $AnimationTree.get("parameters/playback")
 
-func _physics_process(delta):
+func _get_input():
+
+	velocity = Vector2.ZERO
 	
-	sprite.play("Idle")
-	
-	vel.x = 0
-	
-	if Input.is_action_pressed("left"):
-		vel.x -= speed 
-	if Input.is_action_pressed("right"):
-		vel.x += speed
-		
-	vel = move_and_slide(vel, Vector2.UP)	
-	
-	if vel.x < 0 :
-		sprite.flip_h = true
-	elif vel.x > 0 :
-		sprite.flip_h = false
-		
 	if Input.is_action_just_pressed("attack"):
-		sprite.play("Attack1")	
+		stateMachine.travel("Attack1")
+		return
+		
+	if Input.is_action_pressed("right"):
+		velocity.x += 1
+		$Sprite.scale.x = 2
+	if Input.is_action_pressed("left"):
+		velocity.x -= 1
+		$Sprite.scale.x = -2		
+	velocity = velocity.normalized() * SPEED
+	
+	if velocity.length() == 0:
+		stateMachine.travel("Idle")
+	if velocity.length() > 0:
+		stateMachine.travel("Run")
+		
+func _physics_process(delta):
+	_get_input()
+	velocity = move_and_slide(velocity, Vector2.UP)	
