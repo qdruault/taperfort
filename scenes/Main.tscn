@@ -15,3 +15,7 @@ polygon = PoolVector2Array( 32, 320, 32, 576, 992, 576, 992, 320, 1056, 320, 105
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 246.822, 531.265 )
+
+[node name="Player2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 688.618, 530.205 )
+playerIndex = 2
