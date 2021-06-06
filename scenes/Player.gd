@@ -13,8 +13,12 @@ func _get_input():
 
 	velocity = Vector2.ZERO
 	
+	var currentState = stateMachine.get_current_node();
+	if (currentState == "Attack1"):
+		return
+	
 	if Input.is_action_just_pressed("attack"):
-		stateMachine.travel("Attack1")
+		stateMachine.start("Attack1")
 		return
 		
 	if Input.is_action_pressed("right"):
