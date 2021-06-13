@@ -25,6 +25,8 @@ public class Player : KinematicBody2D
     [Export]
     private bool _isPlayerOne;
     [Export]
+    private Player _otherPlayer;
+    [Export]
     private string _rightInput;
     [Export]
     private string _downInput;
@@ -147,6 +149,8 @@ public class Player : KinematicBody2D
     {
         GetInput();
         _velocity = MoveAndSlide(_velocity, Vector2.Up);
+        // Pour que les 2 joueurs se regardent.
+        _sprite.FlipH = IsFacingRight();
     }
 
     public void AnimationInitialization(string pAnimationName)
@@ -168,5 +172,10 @@ public class Player : KinematicBody2D
                 _sprite.Texture = _idleTextureSheet;
                 break;
         }
+    }
+
+    private bool IsFacingRight()
+    {
+        return _otherPlayer.Position.x > Position.x;
     }
 }
