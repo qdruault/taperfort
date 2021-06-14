@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Player.cs" type="Script" id=2]
+[ext_resource path="res://scenes/ui/HealthBar.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -18,7 +19,6 @@ polygon = PoolVector2Array( 32, 320, 32, 576, 992, 576, 992, 320, 1056, 320, 105
 position = Vector2( 246.822, 531.265 )
 script = ExtResource( 2 )
 _isPlayerOne = true
-_otherPlayerNodePath = NodePath("../Player2")
 _rightInput = "right_p1"
 _downInput = "down_p1"
 _leftInput = "left_p1"
@@ -31,7 +31,6 @@ _specialInput = "special_p1"
 [node name="Player2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 704.618, 536.205 )
 script = ExtResource( 2 )
-_otherPlayerNodePath = NodePath("../Player1")
 _rightInput = "right_p2"
 _downInput = "down_p2"
 _leftInput = "left_p2"
@@ -40,3 +39,17 @@ _lightInput = "light_p2"
 _mediumInput = "medium_p2"
 _heavyInput = "heavy_p2"
 _specialInput = "special_p2"
+
+[node name="HealthBar" parent="." instance=ExtResource( 3 )]
+margin_left = 107.0
+margin_top = 148.0
+margin_right = 107.0
+margin_bottom = 148.0
+_playerPath = NodePath("../Player1")
+
+[node name="HealthBar2" parent="." instance=ExtResource( 3 )]
+margin_left = 634.0
+margin_top = 150.0
+margin_right = 634.0
+margin_bottom = 150.0
+_playerPath = NodePath("../Player2")
