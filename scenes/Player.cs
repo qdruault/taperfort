@@ -25,7 +25,7 @@ public class Player : KinematicBody2D
     [Export]
     private bool _isPlayerOne;
     [Export]
-    private Player _otherPlayer;
+    private NodePath _otherPlayerNodePath;
     [Export]
     private string _rightInput;
     [Export]
@@ -49,7 +49,7 @@ public class Player : KinematicBody2D
     private Vector2 _velocity;
     private AnimationNodeStateMachinePlayback _stateMachine;
     private Sprite _sprite;
-
+    private Player _otherPlayer;
     #endregion
 
     // Called when the node enters the scene tree for the first time.
@@ -57,6 +57,7 @@ public class Player : KinematicBody2D
     {
         _stateMachine = (AnimationNodeStateMachinePlayback)GetNode("AnimationTree").Get("parameters/playback");
         _sprite = GetNode<Sprite>("Sprite");
+        _otherPlayer = GetNode<Player>(_otherPlayerNodePath);
 
         if (_isPlayerOne)
         {
@@ -150,7 +151,7 @@ public class Player : KinematicBody2D
         GetInput();
         _velocity = MoveAndSlide(_velocity, Vector2.Up);
         // Pour que les 2 joueurs se regardent.
-        //_sprite.FlipH = IsFacingRight();
+        _sprite.FlipH = !IsFacingRight();
     }
 
     public void InitAnim(string pAnimationName)
