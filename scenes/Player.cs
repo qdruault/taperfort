@@ -89,21 +89,21 @@ public class Player : KinematicBody2D
 
         #region Directions
 
-        if (Input.IsActionJustPressed(_rightInput))
+        if (Input.IsActionPressed(_rightInput))
         {
             GD.Print(string.Format("{0} pressed", _rightInput));
             _velocity.x += 1;
         }
-        else if (Input.IsActionJustPressed(_leftInput))
+        else if (Input.IsActionPressed(_leftInput))
         {
             GD.Print(string.Format("{0} pressed", _leftInput));
             _velocity.x -= 1;
         }
-        else if (Input.IsActionJustPressed(_upInput))
+        else if (Input.IsActionPressed(_upInput))
         {
             GD.Print(string.Format("{0} pressed", _upInput));
         }
-        else if (Input.IsActionJustPressed(_downInput))
+        else if (Input.IsActionPressed(_downInput))
         {
             GD.Print(string.Format("{0} pressed", _downInput));
         }
@@ -150,10 +150,10 @@ public class Player : KinematicBody2D
         GetInput();
         _velocity = MoveAndSlide(_velocity, Vector2.Up);
         // Pour que les 2 joueurs se regardent.
-        _sprite.FlipH = IsFacingRight();
+        //_sprite.FlipH = IsFacingRight();
     }
 
-    public void AnimationInitialization(string pAnimationName)
+    public void InitAnim(string pAnimationName)
     {
         GD.Print("Anim: " + pAnimationName);
         
